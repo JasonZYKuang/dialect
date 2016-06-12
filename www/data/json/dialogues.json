@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "id": "0",
+      "name": "一般接待过程用语",
+      "subList": [
+        {
+          "subid": "0",
+          "subName": "您好!",
+          "subAudio": "../www/data/audio/dialogues/1.wav"
+        },
+        {
+          "subid": "1",
+          "subName": "同志，请出示证件。",
+          "subAudio": "../www/data/audio/dialogues/2.wav"
+        },
+        {
+          "subid": "2",
+          "subName": "我们是阳东区公安局东平边防派出所的工作人员（出示工作证件），现在对此场所进行检查，麻烦大家配合。",
+          "subAudio": "../www/data/audio/dialogues/2.wav"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "在110接处警过程用语",
+      "subList": [
+        {
+          "subid": "0",
+          "subName": "您好，东平边防派出所",
+          "subAudio": "../www/data/audio/dialogues/3.wav"
+        },
+        {
+          "subid": "1",
+          "subName": "您好，这里是阳东区公安局东平边防派出所。",
+          "subAudio": "../www/data/audio/dialogues/4.wav"
+        }
+      ]
+    }
+  ]
+}

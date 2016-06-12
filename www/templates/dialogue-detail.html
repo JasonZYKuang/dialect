@@ -1,0 +1,18 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view title="{{dialogue.name}}">
+    <ion-content has-header="true">
+        <ion-list>
+            <ion-item class="item-icon-right item-text-wrap" ng-repeat="detail in details track by $index"
+                      ng-click="playfor(detail.subid,detail.subAudio)">
+                <h2>{{detail.subName}}</h2>
+                <i class="icon ion-ios-mic-off" ng-if="!detail.playing"></i>
+                <ion-spinner class="icon" icon="lines" ng-if="detail.playing"></ion-spinner>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

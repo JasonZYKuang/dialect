@@ -1,0 +1,25 @@
+<ion-view title="设置" class="scroll-content-1">
+<ion-content>
+    <ion-list>
+        <!--- 基本设置 -->
+        <ion-item class="item item-divider-top">基本设置</ion-item>
+        <ion-item class="item" ng-controller="actionsheetCtl" ng-click="show()">清除历史记录</ion-item>
+        <ion-item class="item-icon-right" href="#/tab/setting/download">
+          下载离线语音数据包
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </ion-item>
+        <!--- 其他 -->
+        <ion-item class="item item-divider-other">其他</ion-item>
+        <ion-item class="item-icon-right" href="#/tab/setting/help">
+          帮助与介绍
+          <i class="icon ion-chevron-right icon-accessory"></i></ion-item>
+        <ion-item class="item-icon-right" href="#/tab/setting/about">
+          关于
+          <i class="icon ion-chevron-right icon-accessory"></i></ion-item>
+        <div class="copyrite">
+       		阳江边防版权所有<br>
+  		©2016 YangJiang Border Defense Corps, All Rights Reserved
+      </div>
+    </ion-list>
+</ion-content>
+</ion-view>

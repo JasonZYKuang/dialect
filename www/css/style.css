@@ -1,0 +1,156 @@
+/* Empty. Add your own CSS if you like */
+.item-divider-top {
+  padding-top: 15px;
+  padding-bottom: 1px;
+  border-width:0px;
+  min-height: 40px;
+  background-color: #f5f5f5;
+  color: #999999;
+  font-size: 13px;}
+
+.item-divider-other {
+  padding-top: 15px;
+  padding-bottom: 1px;
+  min-height: 40px;
+  background-color: #f5f5f5;
+  color: #999999;
+  font-size: 13px;}
+
+.scroll-content-1 {
+  /*position: absolute;*/
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /*overflow: hidden;*/
+  margin-top: -1px;
+  padding-top: 1px;
+  width: auto;
+  height: auto;
+  background-color: #f5f5f5; }
+
+.item-right-1 {
+  padding-right: 10px;
+}
+.noneBottom{
+  margin-bottom: 0px;
+}
+.translateBar{
+  background-color: rgb(218,218,235);
+  text-align: center;
+}
+.logo{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  padding-top: 1px;
+  width: auto;
+  height: auto;
+  background-color: rgb(193,193,238);
+}
+
+.divcenter{
+  /*position: absolute;
+  left: 50%;
+  top:45%;*/
+  padding-top: 260px;
+  text-align: center;
+  color: rgb(180,180,174);
+}
+
+.logo .center{
+/* 	position:absolute;
+    left:50%;top:45%; */
+    padding-top: 160px;
+    text-align: center;
+    color: rgb(180, 180, 174);
+}
+
+.trans{
+	position: relative;
+	padding-top: 10px;
+	padding-left: 0;
+}
+
+.copyrite{
+	background-color: #f5f5f5;
+	text-align: center;
+	font-size: 10px;
+	color: #999999;
+	padding-top: 45px;
+}
+.menubg{
+	background-color: #f5f5f5;
+}
+.hint {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -150px;
+  background: black;
+  z-index: 100;
+  border-radius: 10px;
+  opacity: 0.7;
+}
+.hint i {
+  font-size: 100px;
+  color: #FFFFFF;
+  position: absolute;
+  top: 30px;
+}
+
+.hint i.recording {
+  left: 70px;
+}
+
+.hint i.offline {
+  left: 55px;
+}
+
+.hint p {
+  position: absolute;
+  top: 150px;
+  color: #FFFFFF;
+  text-align: center;
+  width: 100%;
+}
+
+.hint p.assertive {
+  color: #ef4e3a;
+}
+
+.hint .record-progressbar {
+  position: absolute;
+  background-color: #66cc33;
+  height: 5px;
+  top: 140px;
+  -webkit-animation: record-progressbar 55s;
+  -moz-animation:    record-progressbar 55s;
+  -o-animation:      record-progressbar 55s;
+  animation:         record-progressbar 55s;
+}
+@-webkit-keyframes record-progressbar {
+  from   { left: 0%; right: 0%;}
+  to { left: 50%; right: 50%; }
+}
+@-moz-keyframes record-progressbar {
+  from   { left: 0%; right: 0%; }
+  to { left: 50%; right: 50%; }
+}
+@-o-keyframes record-progressbar {
+  from   { left: 0%; right: 0%; }
+  to { left: 50%; right: 50%; }
+}
+@keyframes record-progressbar {
+  from  { left: 0%; right: 0%; }
+  to { left: 50%; right: 50%; }
+}
+

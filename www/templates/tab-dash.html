@@ -1,0 +1,42 @@
+<ion-view view-title="翻译">
+  <ion-content scroll="false">
+    <div class="list noneBottom">
+      <label class="item item-input">
+        <textarea ng-model="model.message" rows="5" placeholder="在此输入要翻译的内容" ng-click="hideLogo()">
+          {{model.message}}
+        </textarea>
+      </label>
+    </div>
+    <div class="trans" ng-if="hasTranslate" ng-click="resub()">{{translate.message}}</div>
+    <div class="row translateBar">
+      <div class="col" ng-click="close()">关闭</div>
+  	  <div class="col" ng-click="translate()">翻译</div>
+  	  <div class="col" ng-click="clear()">清空</div>
+    </div>
+    <div class="logo" ng-if="!logoHide">
+      <div class="center">
+         <img src="img/ionic.png"/>
+        <p>方言翻译通</p>
+      </div>
+    </div>
+
+    <ion-scroll style="height: 100%;" ng-if="hasTranslate">
+    	<div>
+    		<i ng-repeat="resp in translate.result track by $index">{{resp.val}}</i>
+    	</div>
+	    <ion-infinite-scroll on-infinite="loadMore()"></ion-infinite-scroll>
+	  </ion-scroll>
+
+    <ion-scroll style="height: 100%;" ng-if="logoHide">
+      <ion-list>
+        <ion-item class="item-stable" ng-repeat="history in storedData | orderBy: '$index' : true track by $index" ng-click="reTranslate($index)">
+           {{history}}
+          <ion-option-button class="button-assertive" ng-click="removeData($index)">
+            Delete
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll on-infinite="loadMore()"></ion-infinite-scroll>
+    </ion-scroll>
+  </ion-content>
+</ion-view>
