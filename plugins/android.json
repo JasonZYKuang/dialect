@@ -1,0 +1,45 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        }
+    },
+    "dependent_plugins": {}
+}
