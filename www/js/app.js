@@ -195,7 +195,7 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers','starter.n
             views: {
               'tab-setting': {
                 templateUrl: 'templates/download.html'
-                //controller: 'SettingCtrl'
+                controller: 'DownloadCtrl'
               }
             }
           })
