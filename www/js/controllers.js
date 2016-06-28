@@ -1,7 +1,8 @@
 angular.module('starter.controllers', [])
 
   .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService) {
-    $scope.model = {message: ""};
+    //$scope.lang = 'YANGJIANG';
+    $scope.model = {message: "",lang:"YANGJIA",value:"阳江话"};
     $scope.translate = {message: "",result:[]};
     $scope.hideLogo = function () {
       $scope.logoHide = true;
@@ -87,6 +88,24 @@ angular.module('starter.controllers', [])
       $scope.storedData = [];
       localforage.setItem('storedDataForage', $scope.storedData);
     };
+    
+    //Modal................................................................
+    $ionicModal.fromTemplateUrl('templates/lang.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.modal = modal;
+      }) 
+      $scope.openModal = function() {
+        $scope.modal.show();
+      }
+      $scope.sltLang = function(model) {
+    	$scope.model.lang = model.lang;
+        $scope.modal.hide();
+      };
+      $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+      });
   })
 
   .controller('ChatsCtrl', function ($scope, chatService) {
@@ -169,6 +188,37 @@ angular.module('starter.controllers', [])
   })
 
   .controller('SettingCtrl', function ($scope) {
+  })
+  
+  .controller('DownloadCtrl', function ($scope,$ionicSlideBoxDelegate) {
+	  $scope.slideIndex = 0;
+	  $scope.lockSlide = function () {
+	       $ionicSlideBoxDelegate.enableSlide( false );
+	    }
+      // Called each time the slide changes
+  $scope.slideChanged = function(index) {
+      $scope.slideIndex = index;
+      console.log("slide Change");
+
+      if ($scope.slideIndex == 0){
+          console.log("slide 1");
+      }
+
+      else if ($scope.slideIndex == 1){
+          console.log("slide 2");
+      }
+
+      else if ($scope.slideIndex == 2){
+          console.log("slide 3");
+      }
+
+  };
+
+  $scope.activeSlide = function (index) {
+      $ionicSlideBoxDelegate.slide(index);
+      
+  };
+	  
   })
 
   .controller('actionsheetCtl', function ($scope, $ionicActionSheet, $timeout,ServerData,$ionicPopup) {
