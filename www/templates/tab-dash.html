@@ -1,4 +1,8 @@
-<ion-view view-title="翻译">
+<ion-view hide-nav-bar="true" class="scroll-content-1">
+<ion-header-bar class="bar-positive bar bar-header" align-title="center">
+      <div class="title title-center header-item" ng-click="modal.show()">
+      中文&nbsp;&nbsp;&nbsp;&nbsp;<i class="ion-arrow-right-a"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{model.value}}&nbsp;&nbsp;<i class="ion-arrow-down-b"></i></div>
+</ion-header-bar>
   <ion-content scroll="false">
     <div class="list noneBottom">
       <label class="item item-input">
@@ -30,7 +34,10 @@
     <ion-scroll style="height: 100%;" ng-if="logoHide">
       <ion-list>
         <ion-item class="item-stable" ng-repeat="history in storedData | orderBy: '$index' : true track by $index" ng-click="reTranslate($index)">
-           {{history}}
+           <p>
+           		<i class="icon ion-ios-clock calm"></i>
+           		[阳]&nbsp;&nbsp;{{history}}
+           	</p>
           <ion-option-button class="button-assertive" ng-click="removeData($index)">
             Delete
           </ion-option-button>
