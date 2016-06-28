@@ -15,6 +15,10 @@
   background-color: #f5f5f5;
   color: #999999;
   font-size: 13px;}
+  
+.content-bg{
+	background-color: #f5f5f5;
+}  
 
 .scroll-content-1 {
   /*position: absolute;*/
@@ -154,3 +158,37 @@
   to { left: 50%; right: 50%; }
 }
 
+.downloadbar {
+margin: 0 auto;
+width: 100%;
+justify-content: center;
+}
+
+.downloadbar .button{
+border-color: #8876E6;
+}
+
+.icon-right-custom{
+	float: right;
+	font-size: 16px;
+	color: rgb(179, 162, 162);
+}
+.icon-right-define{
+	right: 20px !important;
+}
+.icon-right-custom2{
+	float: right;
+	font-size: 20px;
+	color: rgb(179, 162, 162);
+}
+.icon-right-define2{
+	right: 20px !important;
+	padding-bottom: 6px;
+}
+.modal {
+ top: 0; 
+ right: 0; 
+ bottom: 0; 
+ left: 0; 
+ width: 100%; 
+}
