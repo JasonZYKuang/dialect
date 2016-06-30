@@ -15,7 +15,7 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers','starter.n
     ready: false
   })
     .run(function ($ionicPlatform,$rootScope,$window,$document,DeviceStatus,TranslateService) {
-      TranslateService.init();
+      TranslateService.load('YANGJIANG');
 
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
