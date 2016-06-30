@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService) {
+  .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService,OfflineData) {
     //$scope.lang = 'YANGJIANG';
     $scope.model = {message: "",lang:"YANGJIA",value:"阳江话"};
     $scope.translate = {message: "",result:[]};
@@ -27,7 +27,9 @@ angular.module('starter.controllers', [])
     };
     $scope.translate = function () {
       $scope.translate.result = [];
-      if ($scope.model.message.trim() == '') {
+      if(!TranslateService.hasLang($scope.lang.id)){
+    		ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+$scope.lang.name);
+      }else if ($scope.model.message.trim() == '') {
         ServerData.alert('翻译内容不能为空。');
       } else {
         $scope.translate.message = $scope.model.message;
@@ -63,7 +65,24 @@ angular.module('starter.controllers', [])
         } else {
           $scope.storedData = value;
         }
-      })
+      });
+      localforage.getItem('lang', function(err, value){
+          if (err){
+        	  $scope.lang = {id:"YANGJIANG",name:"阳江话"};
+          } else if (value == null){
+            localforage.setItem('lang', {id:"YANGJIANG",name:"阳江话"});
+            $scope.lang = {id:"YANGJIANG",name:"阳江话"};
+          } else {
+            $scope.lang = value;
+          }
+          console.log('$scope.lang.id='+$scope.lang.id);
+          if(TranslateService.hasLang($scope.lang.id)){
+        	  //console.log("true");
+          }else{
+        	  //console.log("false");
+        	  //ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+$scope.lang.name);
+          }
+        });
     });
     //Add data to localForage
     $scope.addData = function() {
@@ -100,8 +119,15 @@ angular.module('starter.controllers', [])
         $scope.modal.show();
       }
       $scope.sltLang = function(model) {
-    	$scope.model.lang = model.lang;
+    	$scope.lang.name = TranslateService.getNamebyId($scope.lang.id);
+    	localforage.setItem('lang', {id:$scope.lang.id,name:$scope.lang.name});
         $scope.modal.hide();
+        if(TranslateService.hasLang($scope.lang.id)){
+      	  console.log("sltLang - true");
+        }else{
+      	  console.log("sltLang - false");
+      	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+$scope.lang.name);
+        }
       };
       $scope.$on('$destroy', function() {
         $scope.modal.remove();
