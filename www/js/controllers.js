@@ -118,7 +118,7 @@ angular.module('starter.controllers', [])
       $scope.openModal = function() {
         $scope.modal.show();
       }
-      $scope.sltLang = function(model) {
+      $scope.sltLang = function() {
     	$scope.lang.name = TranslateService.getNamebyId($scope.lang.id);
     	localforage.setItem('lang', {id:$scope.lang.id,name:$scope.lang.name});
         $scope.modal.hide();
