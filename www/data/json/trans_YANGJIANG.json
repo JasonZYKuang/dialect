@@ -1,0 +1,16 @@
+[
+  {
+    "name": "你",
+    "value": {
+      "val": "You",
+      "audio": "data/audio/1.wav"
+    }
+  },
+  {
+    "name": "好",
+    "value": {
+      "val": "good",
+      "audio": "data/audio/1.wav"
+    }
+  }
+]
