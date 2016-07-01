@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService,OfflineData) {
-    //$scope.lang = 'YANGJIANG';
+  .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService,OfflineData,lang) {
+    $scope.lang = lang;
     $scope.model = {message: "",lang:"YANGJIA",value:"阳江话"};
     $scope.translate = {message: "",result:[]};
     $scope.hideLogo = function () {
@@ -68,14 +68,13 @@ angular.module('starter.controllers', [])
       });
       localforage.getItem('lang', function(err, value){
           if (err){
-        	  $scope.lang = {id:"YANGJIANG",name:"阳江话"};
+        	  
           } else if (value == null){
-            localforage.setItem('lang', {id:"YANGJIANG",name:"阳江话"});
-            $scope.lang = {id:"YANGJIANG",name:"阳江话"};
+            localforage.setItem('lang', {id:lang.id,name:lang.name});
           } else {
-            $scope.lang = value;
+            lang = value;
+            $scope.lang = lang;
           }
-          console.log('$scope.lang.id='+$scope.lang.id);
           if(TranslateService.hasLang($scope.lang.id)){
         	  //console.log("true");
           }else{
@@ -119,14 +118,15 @@ angular.module('starter.controllers', [])
         $scope.modal.show();
       }
       $scope.sltLang = function() {
-    	$scope.lang.name = TranslateService.getNamebyId($scope.lang.id);
-    	localforage.setItem('lang', {id:$scope.lang.id,name:$scope.lang.name});
+    	lang.name = TranslateService.getNamebyId(lang.id);
+    	$scope.lang = lang;
+    	localforage.setItem('lang', {id:lang.id,name:lang.name});
         $scope.modal.hide();
-        if(TranslateService.hasLang($scope.lang.id)){
-      	  console.log("sltLang - true");
+        if(TranslateService.hasLang(lang.id)){
+      	  //console.log("sltLang - true");
         }else{
-      	  console.log("sltLang - false");
-      	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+$scope.lang.name);
+      	  //console.log("sltLang - false");
+      	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+lang.name);
         }
       };
       $scope.$on('$destroy', function() {
@@ -192,10 +192,10 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('YuyinCtrl', function ($scope, $ionicSideMenuDelegate, $state, $rootScope) {
+  .controller('YuyinCtrl', function ($scope, $ionicSideMenuDelegate, $state, $rootScope,$ionicModal,TranslateService,ServerData,Luyin) {
     console.log("yuyin controll");
     $scope.goBack = function () {
-      console.log("right");
+      //console.log("right");
       /* $scope.$on('$destroy',function(){
        $rootScope.hideTabs = '';
        });*/
@@ -203,6 +203,33 @@ angular.module('starter.controllers', [])
       $rootScope.hideTabs = '';
       $state.go("tab.dash");
     };
+    
+    $scope.$on('$ionicView.enter', function() {
+        localforage.getItem('yuyin_lang', function(err, value){
+            if (err){
+            	console.log("yuyin enter err");
+          	  //$scope.yuyin_lang = {id:"YANGJIANG",name:"阳江话"};
+            	$scope.Luyin = Luyin;
+            } else if (value == null){
+            	console.log("yuyin enter null");
+            	$scope.Luyin = Luyin;
+              localforage.setItem('yuyin_lang', {id:Luyin.id,name:Luyin.name});
+              //$scope.yuyin_lang = {id:"YANGJIANG",name:"阳江话"};
+              
+            } else {
+            	console.log("yuyin enter");
+              Luyin = value;
+              $scope.Luyin = Luyin;
+            }
+            if(TranslateService.hasLang(Luyin.id)){
+          	  //console.log("true");
+            }else{
+          	  //console.log("false");
+          	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+Luyin.name);
+            }
+          });
+        
+      });
   })
 
   .controller('SpeakCtrl', function ($scope, $ionicSideMenuDelegate) {
