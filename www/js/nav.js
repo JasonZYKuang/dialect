@@ -1,7 +1,7 @@
 angular.module('starter.nav', ['ngCordova','ab-base64'])
 
   .controller('NavController', function ($scope, $ionicSideMenuDelegate, $ionicLoading, VoiceRecorderService,FileService,RecognitionService,DeviceStatus,Luyin,base64,NewMedia,$ionicModal,TranslateService,ServerData,Luyin) {
-    $scope.Luyin = Luyin;
+    
     $scope.toggleLeft = function () {
       $ionicSideMenuDelegate.toggleLeft();
     };
