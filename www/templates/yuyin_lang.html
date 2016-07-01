@@ -1,0 +1,18 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive bar bar-header">
+	<button ng-click="modal.hide()" class="button button-white back-button buttons  button-clear header-item">
+		<!-- <i class="icon ion-ios-close-empty">取消</i> --> 
+		<i class="icon">取消</i>
+    </button>
+	<div class="title title-center header-item">
+        		选择语言
+	</div>
+  </ion-header-bar>
+  
+  <ion-content >
+      <ion-list>
+      	<ion-radio ng-model="Luyin.id" value="YANGJIANG" ng-click="sltLang()">阳江话0</ion-radio>
+      	<ion-radio ng-model="Luyin.id" value="KEJIA" ng-click="sltLang()">客家话2</ion-radio>
+      </ion-list>
+  </ion-content>
+</ion-modal-view>
