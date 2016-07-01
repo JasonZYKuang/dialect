@@ -1,6 +1,7 @@
 angular.module('starter.nav', ['ngCordova','ab-base64'])
 
-  .controller('NavController', function ($scope, $ionicSideMenuDelegate, $ionicLoading, VoiceRecorderService,FileService,RecognitionService,DeviceStatus,Luyin,base64,NewMedia) {
+  .controller('NavController', function ($scope, $ionicSideMenuDelegate, $ionicLoading, VoiceRecorderService,FileService,RecognitionService,DeviceStatus,Luyin,base64,NewMedia,$ionicModal,TranslateService,ServerData,Luyin) {
+    $scope.Luyin = Luyin;
     $scope.toggleLeft = function () {
       $ionicSideMenuDelegate.toggleLeft();
     };
@@ -52,6 +53,34 @@ angular.module('starter.nav', ['ngCordova','ab-base64'])
       console.log("call back:"+resp.err_no);
       vm.history.push(resp);
     }
+    
+    //Modal................................................................
+    $ionicModal.fromTemplateUrl('templates/yuyin_lang.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.modal = modal;
+      }) ;
+    
+      $scope.openModal = function() {
+        $scope.modal.show();
+      }
+      $scope.sltLang = function() {
+    	  console.log("luyin.id="+Luyin.id);
+    	  Luyin.name = TranslateService.getNamebyId(Luyin.id);
+    	  $scope.Luyin = Luyin;
+    	localforage.setItem('yuyin_lang', {id:Luyin.id,name:Luyin.name});
+        $scope.modal.hide();
+        if(TranslateService.hasLang(Luyin.id)){
+      	  //console.log("sltLang - true");
+        }else{
+      	  //console.log("sltLang - false");
+      	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+Luyin.name);
+        }
+      };
+      $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+      });
 
 
 
