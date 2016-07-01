@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
   .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService,OfflineData,lang) {
-    $scope.lang = lang;
+    //$scope.lang = lang;
     $scope.model = {message: "",lang:"YANGJIA",value:"阳江话"};
     $scope.translate = {message: "",result:[]};
     $scope.hideLogo = function () {
@@ -66,22 +66,25 @@ angular.module('starter.controllers', [])
           $scope.storedData = value;
         }
       });
-      localforage.getItem('lang', function(err, value){
+      /* localforage.getItem('lang', function(err, value){
           if (err){
-        	  
+        	  //$scope.lang = {id:"YANGJIANG",name:"阳江话"};
           } else if (value == null){
             localforage.setItem('lang', {id:lang.id,name:lang.name});
+            //$scope.lang = {id:"YANGJIANG",name:"阳江话"};
           } else {
-            lang = value;
+        	lang = value;
             $scope.lang = lang;
           }
+          //console.log('$scope.lang.id='+$scope.lang.id);
           if(TranslateService.hasLang($scope.lang.id)){
         	  //console.log("true");
           }else{
         	  //console.log("false");
-        	  //ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+$scope.lang.name);
+        	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+$scope.lang.name);
           }
-        });
+        });*/
+        
     });
     //Add data to localForage
     $scope.addData = function() {
@@ -205,7 +208,7 @@ angular.module('starter.controllers', [])
     };
     
     $scope.$on('$ionicView.enter', function() {
-        localforage.getItem('yuyin_lang', function(err, value){
+        /*localforage.getItem('yuyin_lang', function(err, value){
             if (err){
             	console.log("yuyin enter err");
           	  //$scope.yuyin_lang = {id:"YANGJIANG",name:"阳江话"};
@@ -227,7 +230,14 @@ angular.module('starter.controllers', [])
           	  //console.log("false");
           	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+Luyin.name);
             }
-          });
+          });*/
+        
+        if(TranslateService.hasLang(Luyin.id)){
+        	  //console.log("true");
+          }else{
+        	  //console.log("false");
+        	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+Luyin.name);
+          }
         
       });
   })
