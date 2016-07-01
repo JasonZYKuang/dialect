@@ -6,10 +6,9 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','ngCordova', 'starter.controllers','starter.nav', 'starter.services'])
-  .value("Luyin", {
-    lan: "zh",
-    size: 0
-  })
+  .value("Luyin",{id:"YANGJIANG",name:"阳江话"})
+  .value("lang",{id:"YANGJIANG",name:"阳江话"})
+  .value("DialogueLang",{id:"YANGJIANG",name:"阳江话"})
   .value("DeviceStatus", {
     offline: false,
     ready: false
