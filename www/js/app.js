@@ -6,16 +6,33 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','ngCordova', 'starter.controllers','starter.nav', 'starter.services'])
-  .value("Luyin", {
-    lan: "zh",
-    size: 0
-  })
+  .value("Luyin",{id:"YANGJIANG",name:"阳江话"})
+  .value("lang",{id:"YANGJIANG",name:"阳江话"})
+  .value("DialogueLang",{id:"YANGJIANG",name:"阳江话"})
   .value("DeviceStatus", {
     offline: false,
     ready: false
   })
     .run(function ($ionicPlatform,$rootScope,$window,$document,DeviceStatus,TranslateService) {
-      TranslateService.init();
+      TranslateService.load('YANGJIANG');
+      localforage.getItem('lang', function(err, value){
+          if (err){
+          } else if (value == null){
+            localforage.setItem('lang', {id:lang.id,name:lang.name});
+          } else {
+        	lang = value;
+        	$rootScope.lang = lang;
+          }
+        });
+      localforage.getItem('yuyin_lang', function(err, value){
+          if (err){
+          } else if (value == null){
+            localforage.setItem('yuyin_lang', {id:Luyin.id,name:Luyin.name});
+          } else {
+            Luyin = value;
+            $rootScope.Luyin = Luyin;
+          }
+      });
 
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

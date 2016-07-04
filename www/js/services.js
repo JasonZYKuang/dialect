@@ -1,5 +1,5 @@
 angular.module('starter.services', ['ab-base64','LocalForageModule'])
-
+.value("OfflineData", {lang:[]})
   .factory('localStorageService', [function () {
     return {
       get: function localStorageServiceGet(key, defaultValue) {
@@ -305,16 +305,40 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
     };
   })
 
-  .factory('TranslateService', function ($http, $q,$localForage) {
+  .factory('TranslateService', function ($http, $q,$localForage,OfflineData) {
+    var langlist = [{
+	      id: 'YANGJIANG',
+	      name: '阳江话',
+	    }, {
+	      id: 'KEJIA',
+	      name: '客家话',
+	    }]; 
     return {
-      init: function () {
-        $http.get('data/json/translation.json',{catch:true})
+      getNamebyId: function (langId) {
+        for (var i = 0; i < langlist.length; i++) {
+            if (langlist[i].id === langId) {
+              return langlist[i].name;
+            }
+        }
+        return null;
+      },
+      hasLang: function (langName) {
+        for (var i = 0; i < OfflineData.lang.length; i++) {
+            if (OfflineData.lang[i] === langName) {
+              return true;
+            }
+        }
+        return false;
+      },
+      load: function (lang) {
+        $http.get('data/json/trans_'+lang+'.json',{catch:true})
           .success(function(data){
             for(var i in data){
-                $localForage.setItem('trans_'+data[i].name,JSON.stringify(data[i].value),function(result){
+                $localForage.setItem('trans_'+lang+'_'+data[i].name,JSON.stringify(data[i].value),function(result){
                   //console.log(result);
                 });
             }
+            OfflineData.lang.push(lang);
         }).error(function (err){
 
         });
