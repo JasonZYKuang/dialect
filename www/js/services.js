@@ -312,7 +312,7 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
 	    }, {
 	      id: 'KEJIA',
 	      name: '客家话',
-	    }]; 
+	    }];
     return {
       getNamebyId: function (langId) {
         for (var i = 0; i < langlist.length; i++) {
@@ -343,24 +343,42 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
 
         });
       },
-      translate: function (data) {
+      translate: function (data,lang) {
         var defer = $q.defer();
         var result = new Array();
         var src = data.split(" ");
         for(var s in src){
-          var cnChar = src[s].match(/[^\x00-\x80]/g);
-          if(cnChar !=null){
-            for(var c in cnChar){
-              $localForage.getItem('trans_'+cnChar[c]).then(function(resp){
-                console.log(resp);
-                if(resp != null){
-                  result.push(resp);
-                  defer.resolve(result);
-                }
-              });
+          (function (s){
+            console.log(src[s]);
+            var cnChar = src[s].match(/[^\x00-\x80]/g);
+            if(cnChar !=null){
+              for(var c in cnChar){
+                (function (c){
+                  console.log('c='+c);
+                  $localForage.getItem('trans_'+lang+'_'+cnChar[c]).then(function(resp) {
+                    console.log(resp);
+                    if (resp != null) {
+                      result.push(resp);
+                      defer.resolve(result);
+                    }
+                  });
+                })(c)
+
+                /*$localForage.getItem('trans_'+lang+'_'+cnChar[c]).then(function(resp){
+                 console.log(resp);
+                 if(resp != null){
+                 result.push(resp);
+                 }
+                 if(c == cnChar.length -1){
+                 console.log('transalte end.');
+                 defer.resolve(result);
+                 }
+                 });*/
+              }
+            }else{
             }
-          }else{
-          }
+          })(s)
+
         }
         return defer.promise;
       }

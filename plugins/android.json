@@ -7,9 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.dialect.translator"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.dialect.translator"
         },
@@ -41,5 +38,9 @@
             "PACKAGE_NAME": "com.dialect.translator"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        }
+    }
 }

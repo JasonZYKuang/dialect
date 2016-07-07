@@ -15,10 +15,10 @@
   background-color: #f5f5f5;
   color: #999999;
   font-size: 13px;}
-  
+
 .content-bg{
 	background-color: #f5f5f5;
-}  
+}
 
 .scroll-content-1 {
   /*position: absolute;*/
@@ -159,9 +159,14 @@
 }
 
 .downloadbar {
-margin: 0 auto;
+/*margin: 0 auto;*/
+margin-right: 10px;
 width: 100%;
 justify-content: center;
+}
+
+.bar-width{
+  max-width: 100px;
 }
 
 .downloadbar .button{
@@ -186,9 +191,9 @@ border-color: #8876E6;
 	padding-bottom: 6px;
 }
 .modal {
- top: 0; 
- right: 0; 
- bottom: 0; 
- left: 0; 
- width: 100%; 
+ top: 0;
+ right: 0;
+ bottom: 0;
+ left: 0;
+ width: 100%;
 }

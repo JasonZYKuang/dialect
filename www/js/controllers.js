@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService,OfflineData,lang) {
-    //$scope.lang = lang;
+  .controller('DashCtrl', function ($scope, $ionicPopup, ServerData,TranslateService,OfflineData,lang,$ionicModal) {
+    $scope.lang = lang;
     $scope.model = {message: "",lang:"YANGJIA",value:"阳江话"};
     $scope.translate = {message: "",result:[]};
     $scope.hideLogo = function () {
@@ -37,7 +37,7 @@ angular.module('starter.controllers', [])
         $scope.hasTranslate = true;
         //$scope.logoHide = false;
         this.addData();
-        var promise = TranslateService.translate($scope.translate.message);
+        var promise = TranslateService.translate($scope.translate.message,$scope.lang.id);
         promise.then(function(data){
           var test = "["+data+"]";
           console.log("test="+test);
@@ -84,7 +84,7 @@ angular.module('starter.controllers', [])
         	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+$scope.lang.name);
           }
         });*/
-        
+
     });
     //Add data to localForage
     $scope.addData = function() {
@@ -109,14 +109,14 @@ angular.module('starter.controllers', [])
       $scope.storedData = [];
       localforage.setItem('storedDataForage', $scope.storedData);
     };
-    
+
     //Modal................................................................
     $ionicModal.fromTemplateUrl('templates/lang.html', {
         scope: $scope,
         animation: 'slide-in-up'
       }).then(function(modal) {
         $scope.modal = modal;
-      }) 
+      })
       $scope.openModal = function() {
         $scope.modal.show();
       }
@@ -126,9 +126,7 @@ angular.module('starter.controllers', [])
     	localforage.setItem('lang', {id:lang.id,name:lang.name});
         $scope.modal.hide();
         if(TranslateService.hasLang(lang.id)){
-      	  //console.log("sltLang - true");
         }else{
-      	  //console.log("sltLang - false");
       	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+lang.name);
         }
       };
@@ -206,7 +204,7 @@ angular.module('starter.controllers', [])
       $rootScope.hideTabs = '';
       $state.go("tab.dash");
     };
-    
+
     $scope.$on('$ionicView.enter', function() {
         /*localforage.getItem('yuyin_lang', function(err, value){
             if (err){
@@ -218,7 +216,7 @@ angular.module('starter.controllers', [])
             	$scope.Luyin = Luyin;
               localforage.setItem('yuyin_lang', {id:Luyin.id,name:Luyin.name});
               //$scope.yuyin_lang = {id:"YANGJIANG",name:"阳江话"};
-              
+
             } else {
             	console.log("yuyin enter");
               Luyin = value;
@@ -231,14 +229,14 @@ angular.module('starter.controllers', [])
           	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+Luyin.name);
             }
           });*/
-        
+
         if(TranslateService.hasLang(Luyin.id)){
         	  //console.log("true");
           }else{
         	  //console.log("false");
         	  ServerData.alert('请前往设置窗口下载数据包:&nbsp;'+Luyin.name);
           }
-        
+
       });
   })
 
@@ -252,7 +250,7 @@ angular.module('starter.controllers', [])
 
   .controller('SettingCtrl', function ($scope) {
   })
-  
+
   .controller('DownloadCtrl', function ($scope,$ionicSlideBoxDelegate) {
 	  $scope.slideIndex = 0;
 	  $scope.lockSlide = function () {
@@ -279,9 +277,9 @@ angular.module('starter.controllers', [])
 
   $scope.activeSlide = function (index) {
       $ionicSlideBoxDelegate.slide(index);
-      
+
   };
-	  
+
   })
 
   .controller('actionsheetCtl', function ($scope, $ionicActionSheet, $timeout,ServerData,$ionicPopup) {

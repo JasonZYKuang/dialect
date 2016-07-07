@@ -15,7 +15,7 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers','starter.n
   })
     .run(function ($ionicPlatform,$rootScope,$window,$document,DeviceStatus,TranslateService) {
       TranslateService.load('YANGJIANG');
-      localforage.getItem('lang', function(err, value){
+      /*localforage.getItem('lang', function(err, value){
           if (err){
           } else if (value == null){
             localforage.setItem('lang', {id:lang.id,name:lang.name});
@@ -32,7 +32,7 @@ angular.module('starter', ['ionic','ngCordova', 'starter.controllers','starter.n
             Luyin = value;
             $rootScope.Luyin = Luyin;
           }
-      });
+      });*/
 
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
