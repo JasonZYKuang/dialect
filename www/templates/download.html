@@ -1,73 +1,126 @@
-<!--<ion-header-bar class="bar-subheader">
-  <div class="button-bar">
-    <div class="button-bar">
-      <a class="button" tab-state ui-sref="tabs.d">未下载</a>
-      <a class="button" tab-state ui-sref="tabs.appointment">已下载</a>
-    </div>
-  </div>
-</ion-header-bar>-->
 <ion-view hide-tabs hide-nav-bar="true" class="scroll-content-1">
   <ion-header-bar class="bar-stable bar bar-header">
-	<button ng-click="$ionicGoBack()" class="button button-positive back-button buttons  button-clear header-item" style="">
-	<!--<i class="icon ion-ios-arrow-back">设置</i>-->
-    <i class="icon ion-ios-arrow-back"></i>
+    <button ng-click="$ionicGoBack()" class="button button-positive back-button buttons  button-clear header-item"
+            style="">
+      <!--<i class="icon ion-ios-arrow-back">设置</i>-->
+      <i class="icon ion-ios-arrow-back"></i>
     </button>
-	<div class="button-bar downloadbar">
-		<!-- <div class="button" tab-state ui-sref="tab.download">未下载</div>
-        <div class="button" tab-state ui-sref="tab.help">已下载</div> -->
-        <!-- <a class="button col col-center col-20" tab-state ui-sref="tab.undo">未下载</a>
-        <a class="button col col-center col-20" tab-state ui-sref="tab.done">已下载</a> -->
-        <button ng-click="activeSlide(0)" ng-class="slideIndex == 0 ? 'button button-positive col bar-width':'button button-stable col bar-width'">下载管理</button>
-        <button ng-click="activeSlide(1)" ng-class="slideIndex == 1 ? 'button button-positive col bar-width':'button button-stable col bar-width'">语音列表</button>
-	</div>
-	<!-- <div class="title title-center">
-		<a class="button" tab-state ui-sref="tab.undo">未下载</a>
-        <a class="button" tab-state ui-sref="tab.done">已下载</a>
-	</div> -->
+    <div class="button-bar downloadbar">
+      <button ng-click="activeSlide(0)"
+              ng-class="slideIndex == 0 ? 'button button-positive col bar-width':'button button-stable col bar-width'">
+        下载管理
+      </button>
+      <button ng-click="activeSlide(1)"
+              ng-class="slideIndex == 1 ? 'button button-positive col bar-width':'button button-stable col bar-width'">
+        语音列表
+      </button>
+    </div>
   </ion-header-bar>
 
   <ion-content>
-      <ion-slide-box show-pager="false" on-slide-changed="slideChanged(index)" active-slide="slideIndex" ng-init="lockSlide()">
-            <ion-slide>
-            <ion-list>
-                <ion-item class="item item-divider-top">正在下载</ion-item>
-             	<ion-item class="item-icon-right">
-             	   <!-- <progress ng-hide="download.progress==1;" max="1" value="{{download.progress}}"></progress> -->
-             	   <div class="demo-wrapper html5-progress-bar">
-					<div class="progress-bar-wrapper">
-					<progress id="progressbar" value="40" max="100"></progress>
-					<span class="progress-value">40%</span>
-					</div>
-	            </div>
-             	</ion-item>
-             	<ion-item class="item-icon-right">
-             	   <!-- <progress ng-hide="download.progress==1;" max="1" value="{{download.progress}}"></progress> -->
-             	   <div class="demo-wrapper html5-progress-bar">
-					<div class="progress-bar-wrapper">
-					<progress id="progressbar" value="40" max="100"></progress>
-					<span class="progress-value">40%</span>
-					</div>
-	            </div>
-             	</ion-item>
-             </ion-list>
-             <ion-list>
-                <ion-item class="item item-divider-top">下载完成</ion-item>
-             	<ion-item class="item-icon-right">数据包
-	    			<i class="icon-right-custom">已下载</i>
-             	</ion-item>
-             	<ion-item class="item-icon-right">数据包
-	    			<i class="icon-right-custom">4.2M</i><a class="icon-right-define2 icon ion-ios-download-outline"></a>
-             	</ion-item>
-             </ion-list>
-            </ion-slide>
-            <ion-slide>
-            <ion-list>
-                <ion-item class="item item-divider-top">语音列表</ion-item>
-                <ion-item class="item-icon-right">数据包
-	             	<i class="icon-right-custom">已下载</i><a class="icon-right-define icon ion-ios-download-outline"></a>
-             	</ion-item>
-            </ion-list>
-            </ion-slide>
-      </ion-slide-box>
+    <ion-slide-box show-pager="false" on-slide-changed="slideChanged(index)" active-slide="slideIndex"
+                   ng-init="lockSlide()">
+      <!--下载管理-->
+      <ion-slide>
+        <!--正在下载-->
+        <ion-list>
+          <ion-item class="item item-divider-top">正在下载</ion-item>
+          <ion-item class="item-icon-right">
+            <!-- <progress ng-hide="download.progress==1;" max="1" value="{{download.progress}}"></progress> -->
+            <div class="demo-wrapper html5-progress-bar">
+              <div class="progress-bar-wrapper">
+                <progress id="progressbar" value="40" max="100"></progress>
+                <span class="progress-value">40%</span>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item class="item-icon-right">
+            <!-- <progress ng-hide="download.progress==1;" max="1" value="{{download.progress}}"></progress> -->
+            <div class="demo-wrapper html5-progress-bar">
+              <div class="progress-bar-wrapper">
+                <progress id="progressbar" value="40" max="100"></progress>
+                <span class="progress-value">40%</span>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+
+        <!--下载完成-->
+        <ion-list>
+          <ion-item class="item item-divider-top">下载完成</ion-item>
+          <ion-item class="item-icon-right">数据包
+            <i class="icon-right-custom">已下载</i>
+          </ion-item>
+          <ion-item class="item-icon-right">数据包
+            <i class="icon-right-custom">4.2M</i><a class="icon-right-define2 icon ion-ios-download-outline"></a>
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+
+      <!--语音列表-->
+      <ion-slide>
+        <ion-list>
+          <!--语音列表-->
+          <ion-item class="item item-divider-top">方言翻译</ion-item>
+          <ion-item class="item-icon-right" ng-repeat="(k,v) in langlist">
+            <div ng-if="v.dwnstatus == 'download'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-darkgrey">{{v.size}}</i>
+              <i class="icon-right-darkgrey icon ion-ios-download-outline"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'success'" ng-click="download(v.id)">
+              {{v.name}}
+            <i class="font-right-dwned">已下载&nbsp;&nbsp;{{v.size}}</i>
+            <i class="icon-right-define2 icon ion-ios-download"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'downing'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-dwn">下载中&nbsp;&nbsp;{{v.size}}</i>
+              <i class="icon-right-define icon ion-ios-download-outline"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'waiting'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-dwn">等待下载&nbsp;&nbsp;{{v.size}}</i>
+              <i class="icon-right-define icon ion-ios-download-outline"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'pause'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-darkgreen">已暂停&nbsp;&nbsp;{{v.size}}</i>
+              <i class="icon-right-darkgreen icon ion-ios-download-outline"></i>
+            </div>
+          </ion-item>
+
+          <!--情景对话-->
+          <ion-item class="item item-divider-top">情景对话</ion-item>
+          <ion-item class="item-icon-right" ng-repeat="(k,v) in langlist">
+            <div ng-if="v.dwnstatus == 'download'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-darkgrey">{{v.size}}</i>
+              <i class="icon-right-darkgrey icon ion-ios-download-outline"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'success'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-dwned">已下载&nbsp;&nbsp;{{v.size}}</i>
+              <i class="icon-right-define2 icon ion-ios-download"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'downing'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-dwn">下载中&nbsp;&nbsp;{{v.size}}</i>
+              <i class="icon-right-define icon ion-ios-download-outline"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'waiting'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-dwn">等待下载&nbsp;&nbsp;{{v.size}}</i>
+              <i class="icon-right-define icon ion-ios-download-outline"></i>
+            </div>
+            <div ng-if="v.dwnstatus == 'pause'" ng-click="download(v.id)">
+              {{v.name}}
+              <i class="font-right-darkgreen">已暂停&nbsp;&nbsp;{{v.size}}</i>
+              <i class="icon-right-darkgreen icon ion-ios-download-outline"></i>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+    </ion-slide-box>
   </ion-content>
 </ion-view>

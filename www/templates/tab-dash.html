@@ -6,7 +6,7 @@
   <ion-content scroll="false">
     <div class="list noneBottom">
       <label class="item item-input">
-        <textarea ng-model="model.message" rows="5" placeholder="在此输入要翻译的内容" ng-click="hideLogo()">
+        <textarea ng-model="model.message" rows="15" placeholder="在此输入要翻译的内容" ng-click="hideLogo()">
           {{model.message}}
         </textarea>
       </label>
@@ -27,6 +27,7 @@
     <ion-scroll style="height: 100%;" ng-if="hasTranslate">
     	<div>
     		<i ng-repeat="resp in translate.result track by $index">{{resp.val}}</i>
+        <div ng-click="playAudio()"><i class="icon ion-volume-medium"></i></div>
     	</div>
 	    <ion-infinite-scroll on-infinite="loadMore()"></ion-infinite-scroll>
 	  </ion-scroll>

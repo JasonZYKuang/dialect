@@ -1,8 +1,16 @@
-<ion-view title="情景对话">
+<!--<ion-view title="情景对话">-->
+
+<ion-view hide-nav-bar="true" class="scroll-content-1">
+    <ion-header-bar class="bar-positive bar bar-header" align-title="center">
+      <div class="title title-center header-item" ng-click="modal.show()">
+        情景对话&nbsp;-&nbsp;{{DialogueLang.name}}&nbsp;&nbsp;<i class="ion-arrow-down-b"></i></div>
+    </ion-header-bar>
     <ion-content>
         <ion-list>
-            <ion-item class="item-icon-right" ng-repeat="dialogue in dialogues track by $index"
-                      href="#/tab/dialogue/{{dialogue.id}}">
+            <!--<ion-item class="item-icon-right" ng-repeat="dialogue in dialogues track by $index"
+                      href="#/tab/dialogue/{{dialogue.id}}">-->
+          <ion-item class="item-icon-right" ng-repeat="dialogue in dialogues track by $index"
+                    ng-click="gotoDetail(dialogue.id)">
                 <h2>{{dialogue.name}}</h2>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>

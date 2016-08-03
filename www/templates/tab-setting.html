@@ -4,6 +4,15 @@
         <!--- 基本设置 -->
         <ion-item class="item item-divider-top">基本设置</ion-item>
         <ion-item class="item" ng-controller="actionsheetCtl" ng-click="show()">清除历史记录</ion-item>
+        <ion-item class="item-icon-right" >语速调节
+          <i class="icon icon-accessory">
+            <div class="button-bar speedbar">
+              <button ng-click="speedChange(1.5)" ng-class="speedRate == 1.5 ? 'button button-positive col bar-width':'button button-stable col bar-width'">较快</button>
+              <button ng-click="speedChange(1)" ng-class="speedRate == 1 ? 'button button-positive col bar-width':'button button-stable col bar-width'">正常</button>
+              <button ng-click="speedChange(0.5)" ng-class="speedRate == 0.5 ? 'button button-positive col bar-width':'button button-stable col bar-width'">较慢</button>
+            </div>
+          </i>
+        </ion-item>
         <ion-item class="item-icon-right" href="#/tab/setting/download">
           下载离线语音数据包
           <i class="icon ion-chevron-right icon-accessory"></i>
@@ -17,7 +26,7 @@
           关于
           <i class="icon ion-chevron-right icon-accessory"></i></ion-item>
         <div class="copyrite">
-       		阳江边防版权所有<br>
+          阳江边防版权所有<br>
   		©2016 YangJiang Border Defense Corps, All Rights Reserved
       </div>
     </ion-list>

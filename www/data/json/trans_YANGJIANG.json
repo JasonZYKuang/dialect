@@ -3,14 +3,14 @@
     "name": "你",
     "value": {
       "val": "You",
-      "audio": "data/audio/1.wav"
+      "audio": "data/audio/dialogues/1.wav"
     }
   },
   {
     "name": "好",
     "value": {
       "val": "good",
-      "audio": "data/audio/1.wav"
+      "audio": "data/audio/dialogues/2.wav"
     }
   }
 ]

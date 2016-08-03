@@ -1,13 +1,19 @@
-<!--
-  This template loads for the 'tab.friend-detail' state (app.js)
-  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
-  The FriendsCtrl pulls data from the Friends service (service.js)
-  The Friends service returns an array of friend data
--->
-<ion-view title="{{dialogue.name}}">
+<ion-view title="{{dialogue.name}}" hide-nav-bar="true">
+  <ion-header-bar class="bar-positive bar bar-header">
+    <button ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item">
+      <i class="icon ion-ios-arrow-back"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);">
+        <span class="default-title hide">{{DialogueLang.name}}</span>
+      </span>
+    </button>
+    <div class="title title-center header-item">
+      {{dialogue.name}}
+    </div>
+  </ion-header-bar>
+
     <ion-content has-header="true">
         <ion-list>
-            <ion-item class="item-icon-right item-text-wrap" ng-repeat="detail in details track by $index"
+            <ion-item class="item-icon-right item-text-wrap diacss" ng-repeat="detail in details track by $index"
                       ng-click="playfor(detail.subid,detail.subAudio)">
                 <h2>{{detail.subName}}</h2>
                 <i class="icon ion-ios-mic-off" ng-if="!detail.playing"></i>

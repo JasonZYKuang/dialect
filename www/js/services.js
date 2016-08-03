@@ -1,5 +1,29 @@
-angular.module('starter.services', ['ab-base64','LocalForageModule'])
-.value("OfflineData", {lang:[]})
+angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
+  /***
+   * dwnstatus:
+   *            success: 已下载
+   *            downing: 下载中
+   *            waiting: 等待下载
+   *            pause: 暂停下载
+   *            download: 下载
+   */
+  .value("langlist", {
+    YANGJIANG: {id: 'YANGJIANG', name: '阳江话',size:"30M", dwnstatus: 'success'},
+    KEJIA: {id: 'KEJIA', name: '客家话', size:"20M",dwnstatus: 'waiting'},
+    CHAOSHAN: {id: 'CHAOSHAN', name: '潮汕话', size:"20M",dwnstatus: 'pause'},
+    SHANGHAI: {id: 'SHANGHAI', name: '上海话', size:"20M",dwnstatus: 'download'},
+    YUEYU: {id: 'YUEYU', name: '粤语', size:"20M",dwnstatus: 'downing'}
+  })
+
+  .value("lang_dialogues", {
+    YANGJIANG: {id: 'YANGJIANG', name: '阳江话',size:"10M", dwnstatus: 'success'},
+    KEJIA: {id: 'KEJIA', name: '客家话',size:"5M", dwnstatus: 'waiting'},
+    CHAOSHAN: {id: 'CHAOSHAN', name: '潮汕话', size:"20M",dwnstatus: 'pause'},
+    SHANGHAI: {id: 'SHANGHAI', name: '上海话', size:"20M",dwnstatus: 'download'},
+    YUEYU: {id: 'YUEYU', name: '粤语', size:"20M",dwnstatus: 'downing'}
+  })
+
+
   .factory('localStorageService', [function () {
     return {
       get: function localStorageServiceGet(key, defaultValue) {
@@ -44,55 +68,6 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
   }])
 
 
-  .factory('chatService', function () {
-    // Might use a resource here that returns a JSON array
-
-    // Some fake testing data
-    var chats = [{
-      id: 0,
-      name: 'Ben Sparrow',
-      lastText: 'You on your way?',
-      face: 'img/ben.png'
-    }, {
-      id: 1,
-      name: 'Max Lynx',
-      lastText: 'Hey, it\'s me',
-      face: 'img/max.png'
-    }, {
-      id: 2,
-      name: 'Adam Bradleyson',
-      lastText: 'I should buy a boat',
-      face: 'img/adam.jpg'
-    }, {
-      id: 3,
-      name: 'Perry Governor',
-      lastText: 'Look at my mukluks!',
-      face: 'img/perry.png'
-    }, {
-      id: 4,
-      name: 'Mike Harrington',
-      lastText: 'This is wicked good ice cream.',
-      face: 'img/mike.png'
-    }];
-
-    return {
-      all: function () {
-        return chats;
-      },
-      remove: function (chat) {
-        chats.splice(chats.indexOf(chat), 1);
-      },
-      get: function (chatId) {
-        for (var i = 0; i < chats.length; i++) {
-          if (chats[i].id === parseInt(chatId)) {
-            return chats[i];
-          }
-        }
-        return null;
-      }
-    };
-  })
-
   .factory('ServerData', function ($ionicPopup) {
     return {
       //弹出信息框
@@ -101,11 +76,17 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
           template: msg,
           title: '提示信息'
         });
+      },
+      alertBy: function (tle, msg) {
+        $ionicPopup.alert({
+          template: msg,
+          title: tle
+        });
       }
     };
   })
 
-  .factory('RecognitionService', function ($http, $q, Luyin, $cordovaDevice,base64) {
+  .factory('RecognitionService', function ($http, $q, $cordovaDevice, base64) {
     return {
       recognise: function (data) {
         console.log(data.length);
@@ -129,7 +110,7 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
           },
           transformRequest: []
         }).success(function (data) {
-           defer.resolve(data);
+          defer.resolve(data);
         }).error(function (data, status, headers, config) {
           defer.reject(data);
         });
@@ -138,28 +119,28 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
     };
   })
 
-  .factory('FileService', function ($q, $window, Luyin) {
+  .factory('FileService', function ($q, $window) {
     return {
       readAsArrayBuffer: function (file) {
-        console.log("file="+file);
-         var defer = $q.defer();
-         $window.resolveLocalFileSystemURL(file, function (entry) {
-            var reader = new $window.FileReader();
-            reader.onload = function (evt) {
-                defer.resolve(evt.target.result);
-                console.log("evt target=" + evt.target.result);
-            }
-            reader.onerror = function (evt) {
-                defer.reject();
-            };
-            entry.file(function (s) {
-                console.log("s.size="+ s.size);
-              Luyin.size = s.size;
-                //reader.readAsArrayBuffer(s);
-              reader.readAsDataURL(s);
-            });
-         });
-         return defer.promise;
+        console.log("file=" + file);
+        var defer = $q.defer();
+        $window.resolveLocalFileSystemURL(file, function (entry) {
+          var reader = new $window.FileReader();
+          reader.onload = function (evt) {
+            defer.resolve(evt.target.result);
+            console.log("evt target=" + evt.target.result);
+          }
+          reader.onerror = function (evt) {
+            defer.reject();
+          };
+          entry.file(function (s) {
+            console.log("s.size=" + s.size);
+            Luyin.size = s.size;
+            //reader.readAsArrayBuffer(s);
+            reader.readAsDataURL(s);
+          });
+        });
+        return defer.promise;
       }
     };
   })
@@ -170,10 +151,10 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
       recordCanceled, maxLengthCheckTimeout;
 
     /*var mediaSrc = window.cordova.file.externalDataDirectory + "dialect.wav";
-    var mediaSource = new NewMedia(mediaSrc, function () {
-    }, function () {
-    }, function () {
-    });*/
+     var mediaSource = new NewMedia(mediaSrc, function () {
+     }, function () {
+     }, function () {
+     });*/
 
     return {
       //弹出信息框
@@ -207,14 +188,15 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
 
         record.startRecord();
         /*setTimeout(function() {
-          record.stopRecord();
-        }, 55000);*/
+         record.stopRecord();
+         }, 55000);*/
 
         if (angular.isDefined(maxLength)) {
           maxLengthCheckTimeout = $timeout(function exceedMaxLengthCallback() {
             record.stopRecord();
           }, maxLength * 1000);
-        };
+        }
+        ;
         return defer.promise;
       },
       stopRecord: function () {
@@ -305,109 +287,99 @@ angular.module('starter.services', ['ab-base64','LocalForageModule'])
     };
   })
 
-  .factory('TranslateService', function ($http, $q,$localForage,OfflineData) {
-    var langlist = [{
-	      id: 'YANGJIANG',
-	      name: '阳江话',
-	    }, {
-	      id: 'KEJIA',
-	      name: '客家话',
-	    }];
+  .factory('TranslateService', function ($http, $q, $localForage, langlist) {
+
     return {
       getNamebyId: function (langId) {
-        for (var i = 0; i < langlist.length; i++) {
-            if (langlist[i].id === langId) {
-              return langlist[i].name;
-            }
+        return langlist[langId].name;
+        /*for (var i = 0; i < langlist.length; i++) {
+          if (langlist[i].id === langId) {
+            return langlist[i].name;
+          }
         }
-        return null;
+        return null;*/
       },
-      hasLang: function (langName) {
-        for (var i = 0; i < OfflineData.lang.length; i++) {
-            if (OfflineData.lang[i] === langName) {
-              return true;
-            }
+      hasLang: function (langId) {
+        if(langlist[langId].dwnstatus == 'success')
+        return true;
+        else return false;
+        /*for (var i = 0; i < OfflineData.lang.length; i++) {
+          if (OfflineData.lang[i] === langId) {
+            return true;
+          }
         }
-        return false;
+        return false;*/
       },
       load: function (lang) {
-        $http.get('data/json/trans_'+lang+'.json',{catch:true})
-          .success(function(data){
-            for(var i in data){
-                $localForage.setItem('trans_'+lang+'_'+data[i].name,JSON.stringify(data[i].value),function(result){
-                  //console.log(result);
-                });
+        $http.get('data/json/trans_' + lang + '.json', {catch: true})
+          .success(function (data) {
+            for (var i in data) {
+              $localForage.setItem('trans_' + lang + '_' + data[i].name, JSON.stringify(data[i].value), function (result) {
+                //console.log(result);
+              });
             }
-            OfflineData.lang.push(lang);
-        }).error(function (err){
+            //OfflineData.lang.push(lang);
+          }).error(function (err) {
 
         });
       },
-      translate: function (data,lang) {
+      translate: function (data, lang) {
         var defer = $q.defer();
         var result = new Array();
         var src = data.split(" ");
-        for(var s in src){
-          (function (s){
-            console.log(src[s]);
+        for (var s in src) {
+          (function (s) {
             var cnChar = src[s].match(/[^\x00-\x80]/g);
-            if(cnChar !=null){
-              for(var c in cnChar){
-                (function (c){
-                  console.log('c='+c);
-                  $localForage.getItem('trans_'+lang+'_'+cnChar[c]).then(function(resp) {
-                    console.log(resp);
-                    if (resp != null) {
-                      result.push(resp);
-                      defer.resolve(result);
-                    }
-                  });
+            if (cnChar != null) {
+              for (var c in cnChar) {
+                (function (c) {
+                  /*$localForage.getItem('trans_'+lang+'_'+cnChar[c]).then(function(resp) {
+                   //console.log(resp);
+                   if (resp != null) {
+                   result.push(resp);
+                   defer.resolve(result);
+                   }
+                   });*/
+                  var val = $localForage.getItem('trans_' + lang + '_' + cnChar[c]);
+                  result.push(val);
                 })(c)
-
-                /*$localForage.getItem('trans_'+lang+'_'+cnChar[c]).then(function(resp){
-                 console.log(resp);
-                 if(resp != null){
-                 result.push(resp);
-                 }
-                 if(c == cnChar.length -1){
-                 console.log('transalte end.');
-                 defer.resolve(result);
-                 }
-                 });*/
               }
-            }else{
+            } else {
             }
           })(s)
 
         }
+        $q.all(result).then(function (resp) {
+          defer.resolve(resp);
+        });
         return defer.promise;
       }
     };
   })
 
   /*.factory('HistoryService', function ($localForage) {
-    return {
-      addData: function () {
-        if($scope.storedData.length >= 10){
-          this.removeData(0);
-        }
-        $scope.storedData.push($scope.translate.message);
-        localforage.setItem('storedDataForage', $scope.storedData).then(function(value) {
-          console.log($scope.translate.message + ' was added!');
-        }, function(error) {
-          console.error(error);
-        });
-      },
-      removeData: function (index) {
-        $scope.storedData.splice(index, 1);
-        localforage.setItem('storedDataForage', $scope.storedData);
-      },
-      clearData: function(){
-        console.log("clear history");
-        $scope.storedData = [];
-        localforage.setItem('storedDataForage', $scope.storedData);
-      }
-    };
-  })*/
+   return {
+   addData: function () {
+   if($scope.storedData.length >= 10){
+   this.removeData(0);
+   }
+   $scope.storedData.push($scope.translate.message);
+   localforage.setItem('storedDataForage', $scope.storedData).then(function(value) {
+   console.log($scope.translate.message + ' was added!');
+   }, function(error) {
+   console.error(error);
+   });
+   },
+   removeData: function (index) {
+   $scope.storedData.splice(index, 1);
+   localforage.setItem('storedDataForage', $scope.storedData);
+   },
+   clearData: function(){
+   console.log("clear history");
+   $scope.storedData = [];
+   localforage.setItem('storedDataForage', $scope.storedData);
+   }
+   };
+   })*/
 
 ;
