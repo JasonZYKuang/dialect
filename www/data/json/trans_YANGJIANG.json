@@ -2,14 +2,14 @@
   {
     "name": "你",
     "value": {
-      "val": "You",
+      "val": "你",
       "audio": "data/audio/dialogues/1.wav"
     }
   },
   {
     "name": "好",
     "value": {
-      "val": "good",
+      "val": "好",
       "audio": "data/audio/dialogues/2.wav"
     }
   }

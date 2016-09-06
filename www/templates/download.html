@@ -23,36 +23,52 @@
       <!--下载管理-->
       <ion-slide>
         <!--正在下载-->
+        <!--正在下载(方言翻译)-->
         <ion-list>
-          <ion-item class="item item-divider-top">正在下载</ion-item>
-          <ion-item class="item-icon-right">
-            <!-- <progress ng-hide="download.progress==1;" max="1" value="{{download.progress}}"></progress> -->
+          <ion-item class="item item-divider-top">正在下载(方言翻译)</ion-item>
+          <ion-item class="item-icon-right" ng-repeat="(k,v) in filterDowning(langlist)" ng-click="showTranslateAction(k)">
             <div class="demo-wrapper html5-progress-bar">
-              <div class="progress-bar-wrapper">
-                <progress id="progressbar" value="40" max="100"></progress>
-                <span class="progress-value">40%</span>
+              <div class="progress-bar-wrapper">{{v.name}}
+                <span class="progress-value" ng-if="v.dwnstatus == 'pause'">已暂停&nbsp;{{v.progressval}}%</span>
+                <span class="progress-value" ng-if="v.dwnstatus == 'downing'">正在下载&nbsp;{{v.progressval}}%</span>
+                <span class="progress-value" ng-if="v.dwnstatus == 'waiting'">等待下载&nbsp;{{v.progressval}}%</span>
+                <progress max="100" value="{{v.progressval}}"></progress>
               </div>
             </div>
           </ion-item>
-          <ion-item class="item-icon-right">
-            <!-- <progress ng-hide="download.progress==1;" max="1" value="{{download.progress}}"></progress> -->
+        </ion-list>
+        <!--正在下载(情景对话)-->
+        <ion-list>
+          <ion-item class="item item-divider-top">正在下载(情景对话)</ion-item>
+          <ion-item class="item-icon-right" ng-repeat="(k,v) in filterDowning(lang_dialogues)" ng-click="showDialogueAction(k)">
             <div class="demo-wrapper html5-progress-bar">
-              <div class="progress-bar-wrapper">
-                <progress id="progressbar" value="40" max="100"></progress>
-                <span class="progress-value">40%</span>
+              <div class="progress-bar-wrapper">{{v.name}}
+                <span class="progress-value" ng-if="v.dwnstatus == 'pause'">已暂停&nbsp;{{v.progressval}}%</span>
+                <span class="progress-value" ng-if="v.dwnstatus == 'downing'">正在下载&nbsp;{{v.progressval}}%</span>
+                <span class="progress-value" ng-if="v.dwnstatus == 'waiting'">等待下载&nbsp;{{v.progressval}}%</span>
+                <progress max="100" value="{{v.progressval}}"></progress>
               </div>
             </div>
           </ion-item>
         </ion-list>
 
         <!--下载完成-->
+        <!--下载完成(方言翻译)-->
         <ion-list>
-          <ion-item class="item item-divider-top">下载完成</ion-item>
-          <ion-item class="item-icon-right">数据包
-            <i class="icon-right-custom">已下载</i>
+          <ion-item class="item item-divider-top">下载完成(方言翻译)</ion-item>
+          <ion-item class="item-icon-right" ng-repeat="(k,v) in downloadStatus(langlist,'success')" ng-click="showTranslateAction(k)">
+            <div>{{v.name}}
+            <i class="font-right-dwned">已下载</i>
+            </div>
           </ion-item>
-          <ion-item class="item-icon-right">数据包
-            <i class="icon-right-custom">4.2M</i><a class="icon-right-define2 icon ion-ios-download-outline"></a>
+        </ion-list>
+        <!--下载完成(情景对话)-->
+        <ion-list>
+          <ion-item class="item item-divider-top">下载完成(情景对话)</ion-item>
+          <ion-item class="item-icon-right" ng-repeat="(k,v) in downloadStatus(lang_dialogues,'success')" ng-click="showDialogueAction(k)">
+            <div>{{v.name}}
+                <i class="font-right-dwned">已下载</i>
+            </div>
           </ion-item>
         </ion-list>
       </ion-slide>
@@ -92,28 +108,28 @@
 
           <!--情景对话-->
           <ion-item class="item item-divider-top">情景对话</ion-item>
-          <ion-item class="item-icon-right" ng-repeat="(k,v) in langlist">
-            <div ng-if="v.dwnstatus == 'download'" ng-click="download(v.id)">
+          <ion-item class="item-icon-right" ng-repeat="(k,v) in lang_dialogues">
+            <div ng-if="v.dwnstatus == 'download'" ng-click="downloadDialogues(v.id)">
               {{v.name}}
               <i class="font-right-darkgrey">{{v.size}}</i>
               <i class="icon-right-darkgrey icon ion-ios-download-outline"></i>
             </div>
-            <div ng-if="v.dwnstatus == 'success'" ng-click="download(v.id)">
+            <div ng-if="v.dwnstatus == 'success'" ng-click="downloadDialogues(v.id)">
               {{v.name}}
               <i class="font-right-dwned">已下载&nbsp;&nbsp;{{v.size}}</i>
               <i class="icon-right-define2 icon ion-ios-download"></i>
             </div>
-            <div ng-if="v.dwnstatus == 'downing'" ng-click="download(v.id)">
+            <div ng-if="v.dwnstatus == 'downing'" ng-click="downloadDialogues(v.id)">
               {{v.name}}
               <i class="font-right-dwn">下载中&nbsp;&nbsp;{{v.size}}</i>
               <i class="icon-right-define icon ion-ios-download-outline"></i>
             </div>
-            <div ng-if="v.dwnstatus == 'waiting'" ng-click="download(v.id)">
+            <div ng-if="v.dwnstatus == 'waiting'" ng-click="downloadDialogues(v.id)">
               {{v.name}}
               <i class="font-right-dwn">等待下载&nbsp;&nbsp;{{v.size}}</i>
               <i class="icon-right-define icon ion-ios-download-outline"></i>
             </div>
-            <div ng-if="v.dwnstatus == 'pause'" ng-click="download(v.id)">
+            <div ng-if="v.dwnstatus == 'pause'" ng-click="downloadDialogues(v.id)">
               {{v.name}}
               <i class="font-right-darkgreen">已暂停&nbsp;&nbsp;{{v.size}}</i>
               <i class="icon-right-darkgreen icon ion-ios-download-outline"></i>

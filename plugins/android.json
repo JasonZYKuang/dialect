@@ -36,6 +36,12 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-plugin-zip": {
+            "PACKAGE_NAME": "com.dialect.translator"
+        },
+        "cordova-hot-code-push-plugin": {
+            "PACKAGE_NAME": "com.dialect.translator"
         }
     },
     "dependent_plugins": {

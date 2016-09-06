@@ -8,19 +8,19 @@ angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
    *            download: 下载
    */
   .value("langlist", {
-    YANGJIANG: {id: 'YANGJIANG', name: '阳江话',size:"30M", dwnstatus: 'success'},
-    KEJIA: {id: 'KEJIA', name: '客家话', size:"20M",dwnstatus: 'waiting'},
-    CHAOSHAN: {id: 'CHAOSHAN', name: '潮汕话', size:"20M",dwnstatus: 'pause'},
-    SHANGHAI: {id: 'SHANGHAI', name: '上海话', size:"20M",dwnstatus: 'download'},
-    YUEYU: {id: 'YUEYU', name: '粤语', size:"20M",dwnstatus: 'downing'}
+    YANGJIANG: {id: 'YANGJIANG', name: '阳江话',size:"30M", dwnstatus: 'success',progressval:100,stopinterval:null},
+    KEJIA: {id: 'KEJIA', name: '客家话', size:"20M",dwnstatus: 'waiting',progressval:0,stopinterval:null},
+    CHAOSHAN: {id: 'CHAOSHAN', name: '潮汕话', size:"20M",dwnstatus: 'pause',progressval:20,stopinterval:null},
+    SHANGHAI: {id: 'SHANGHAI', name: '上海话', size:"20M",dwnstatus: 'download',progressval:0,stopinterval:null},
+    YUEYU: {id: 'YUEYU', name: '粤语', size:"20M",dwnstatus: 'downing',progressval:10,stopinterval:null}
   })
 
   .value("lang_dialogues", {
-    YANGJIANG: {id: 'YANGJIANG', name: '阳江话',size:"10M", dwnstatus: 'success'},
-    KEJIA: {id: 'KEJIA', name: '客家话',size:"5M", dwnstatus: 'waiting'},
-    CHAOSHAN: {id: 'CHAOSHAN', name: '潮汕话', size:"20M",dwnstatus: 'pause'},
-    SHANGHAI: {id: 'SHANGHAI', name: '上海话', size:"20M",dwnstatus: 'download'},
-    YUEYU: {id: 'YUEYU', name: '粤语', size:"20M",dwnstatus: 'downing'}
+    YANGJIANG: {id: 'YANGJIANG', name: '阳江话',size:"10M", dwnstatus: 'success',progressval:100,stopinterval:true},
+    KEJIA: {id: 'KEJIA', name: '客家话',size:"5M", dwnstatus: 'success',progressval:100,stopinterval:true},
+    CHAOSHAN: {id: 'CHAOSHAN', name: '潮汕话', size:"20M",dwnstatus: 'download',progressval:0,stopinterval:null},
+    SHANGHAI: {id: 'SHANGHAI', name: '上海话', size:"20M",dwnstatus: 'download',progressval:0,stopinterval:null},
+    YUEYU: {id: 'YUEYU', name: '粤语', size:"20M",dwnstatus: 'downing',progressval:20,stopinterval:null}
   })
 
 
@@ -68,7 +68,7 @@ angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
   }])
 
 
-  .factory('ServerData', function ($ionicPopup) {
+  .factory('ServerData', function ($ionicPopup,$timeout) {
     return {
       //弹出信息框
       alert: function (msg) {
@@ -82,6 +82,16 @@ angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
           template: msg,
           title: tle
         });
+      },
+      showPopup: function(value){
+        var myPopup = $ionicPopup.show({
+          cssClass:'er-popup',
+          content: value
+        });
+
+        $timeout(function(){
+          myPopup.close();
+        },1000);
       }
     };
   })
@@ -268,7 +278,7 @@ angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
       },
       init: function () {
         var defer = $q.defer();
-        $http.get('data/json/dialogues.json', {
+        $http.get('data/json/dialogue_YANGJIANG.json', {
           catch: true
         }).success(function (data) {
           defer.resolve(data);
@@ -276,8 +286,9 @@ angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
           defer.reject(err);
         });
       },
-      all: function () {
-        dialogues = $http.get("data/json/dialogues.json", {cache: true});
+      all: function (langId) {
+        //dialogues = $http.get("data/json/dialogue_"+langId+".json", {cache: true});
+        dialogues = $http.get(cordova.file.externalApplicationStorageDirectory+"dialogues/"+langId+"/dialogue_"+langId+".json", {cache: true});
         return dialogues;
       },
       get: function (dialogueId) {
@@ -287,7 +298,7 @@ angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
     };
   })
 
-  .factory('TranslateService', function ($http, $q, $localForage, langlist) {
+  .factory('TranslateService', function ($http, $q, $localForage, langlist,lang_dialogues) {
 
     return {
       getNamebyId: function (langId) {
@@ -309,6 +320,11 @@ angular.module('starter.services', ['ab-base64', 'LocalForageModule'])
           }
         }
         return false;*/
+      },
+      hasDialogues: function (langId) {
+        if(lang_dialogues[langId].dwnstatus == 'success')
+          return true;
+        else return false;
       },
       load: function (lang) {
         $http.get('data/json/trans_' + lang + '.json', {catch: true})
